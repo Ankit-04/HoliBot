@@ -20,15 +20,15 @@ async def hello(ctx):
 
 @client.command(aliases = ['t','Triva'])
 async def triva(ctx):
-    question_list = [["test question","choice 1","choice 2","choice 3(correct choice)", "choice 4", "3"]]
-    question = random.choice(question_list)
+    question_list = [["test question","choice 1","choice 2","choice 3(correct choice)", "choice 4", 2]]
+    question_index = random.choice(question_list)
     user = ctx.author
-    choice1 = question[1] 
-    choice2 = question[2] 
-    choice3 = question[3] 
-    choice4 = question[4] 
-    anwer = question[5] 
-    question = question[0]
+    choice1 = question_index[1] 
+    choice2 = question_index[2] 
+    choice3 = question_index[3] 
+    choice4 = question_index[4] 
+    answer = question_index[5] 
+    question = question_index[0]
     await ctx.send(f"""```{question} \n{choice1}\n{choice2}\n{choice3}\n{choice4}```""")
     try:
         msg = await client.wait_for(
@@ -36,7 +36,11 @@ async def triva(ctx):
            timeout=10,
            check = lambda message: message.author == ctx.author
         )
-        await ctx.send(msg)
+        if msg:
+            if int(msg.content) == answer:
+                await ctx.send("Congrats you got it right, why not try another one!")
+            else:
+                await ctx.send(f"Better luck next time! The correct answer was {question_index[answer]}")
     except asyncio.TimeoutError:
         await ctx.send("bot timed out for your answer")
     
