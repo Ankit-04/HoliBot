@@ -180,7 +180,6 @@ async def triva(ctx):
             "Kulfi",
             "Gulab Jamun",
             "Ice Cream",
-            "Ice Cream",
             "Gajar Halwa",
             1
         ]
@@ -191,7 +190,7 @@ async def triva(ctx):
     choice2 = question_index[2] 
     choice3 = question_index[3] 
     choice4 = question_index[4] 
-    answer = question_index[5] 
+    answer = question_index[5]
     question = question_index[0]
     await ctx.send(f"""```{question} \n\t1. {choice1}\n\t2. {choice2}\n\t3. {choice3}\n\t4. {choice4}```""")
     
@@ -215,11 +214,6 @@ async def triva(ctx):
         await ctx.send("bot timed out for your answer")
     
 @client.command()
-async def music(ctx):
-    questions = [["test question","choice 1","choice 3(correct choice)", "choice 4", "3"]]
-    await ctx.send(random.choice(questions)) 
-
-@client.command()
 async def color(ctx):
     filename = "tempavatar.png"
     await ctx.author.avatar_url.save(filename)
@@ -232,5 +226,6 @@ async def color(ctx):
     
     file = discord.File(fp="final.png")
     await ctx.send(file=file)
+
 
 client.run(os.getenv('TOKEN'))
